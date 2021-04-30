@@ -11,7 +11,6 @@ namespace GameClientNamespace
         public static int gameActualState = 0;
         public static string player1Name = "";
         public static string player2Name = "";
-
         public static bool message = false;
 
     }
