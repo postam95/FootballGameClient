@@ -33,7 +33,7 @@ namespace GameClientNamespace
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine("Hiba a csatlakozásban" + e);
+				Console.WriteLine("Hiba a csatlakozásban" + e);
 				return false;
 			}
 		}
@@ -53,7 +53,7 @@ namespace GameClientNamespace
 							var incommingData = new byte[length];
 							Array.Copy(bytes, 0, incommingData, 0, length);			
 							string serverMessage = Encoding.ASCII.GetString(incommingData);
-							Debug.WriteLine("Kapott üzenet a szervertől: " + serverMessage);
+							Console.WriteLine("Kapott üzenet a szervertől: " + serverMessage);
 
 							SingletonGameState.GetInstance().SetGameState(JsonConvert.DeserializeObject<GameState>(serverMessage));
 						}
@@ -63,7 +63,7 @@ namespace GameClientNamespace
 			}
 			catch (SocketException socketException)
 			{
-				Debug.WriteLine("Socket hiba: " + socketException);
+				Console.WriteLine("Socket hiba: " + socketException);
 			}
 		}
 
@@ -80,12 +80,12 @@ namespace GameClientNamespace
 				{         
 					byte[] clientMessageAsByteArray = Encoding.ASCII.GetBytes(message);          
 					stream.Write(clientMessageAsByteArray, 0, clientMessageAsByteArray.Length);
-					Debug.WriteLine("Kliens küld üzenetet");
+					Console.WriteLine("Kliens küld üzenetet");
 				}
 			}
 			catch (SocketException socketException)
 			{
-				Debug.WriteLine("Socket exception: " + socketException);
+				Console.WriteLine("Socket exception: " + socketException);
 			}
 		}
 

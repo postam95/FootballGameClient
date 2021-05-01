@@ -98,6 +98,10 @@ namespace GameClientNamespace
             {
                 userCommand.Right = true;
             }
+            if (e.KeyCode == Keys.Space)
+            {
+                userCommand.Kick = true;
+            }
             if (canSend)
             {
                 comm.SendMessage(JsonConvert.SerializeObject(userCommand));
@@ -123,6 +127,10 @@ namespace GameClientNamespace
             if (e.KeyCode == Keys.Right)
             {
                 userCommand.Right = false;
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+                userCommand.Kick = false;
             }
 
             if (canSend)
