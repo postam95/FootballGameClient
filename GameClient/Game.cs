@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameClient;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,10 @@ namespace GameClientNamespace
     {
         Socket comm = new Socket();
         System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
+        GameState gameState = SingletonGameState.GetInstance().GetGameState();
+        UserCommand userCommand = SingletonGameState.GetInstance().GetUserCommand();
+        bool canSend = true;
+        int clientId = 0;
  
         public Form1()
         {
@@ -31,7 +37,7 @@ namespace GameClientNamespace
             pictureField.Controls.Add(label3);
 
 
-            timer1.Interval = 25;
+            timer1.Interval = 15;
             timer1.Tick += new System.EventHandler(timer1_Tick);
             timer1.Start();
 
@@ -39,22 +45,90 @@ namespace GameClientNamespace
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-           if (GameState.gameActualState == 1)
+            gameState = SingletonGameState.GetInstance().GetGameState();
+           if (gameState.GameActualState == 1)
             {
                 label2.Text = "Várakozás a második játékosra...";
                 label2.ForeColor = Color.White;
                 textBoxName.Enabled = false;
                 buttonConnect.Enabled = false;
-                this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+                clientId = 1;
             }
+
+            if (gameState.GameActualState == 2)
+            {               
+                panel1.Visible = false;
+                this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+                this.KeyUp += new KeyEventHandler(Form1_KeyUp);
+                if (clientId == 0)
+                {
+                    clientId = 2;
+                }
+            }
+
+            player1Name.Text = gameState.Player1Name;
+            player2Name.Text = gameState.Player2Name;
+            player1Value.Text = gameState.Player1Value.ToString();
+            player2Value.Text = gameState.Player2value.ToString();
+            pictureHomePlayer1.Location = new Point(gameState.PictureHomePlayer1X, gameState.PictureHomePlayer1Y);
+            pcictureHomeGoalKeeper.Location = new Point(gameState.PcictureHomeGoalKeeperX, gameState.PcictureHomeGoalKeeperY);
+            pictureAwayPlayer1.Location = new Point(gameState.PictureAwayPlayer1X, gameState.PictureAwayPlayer1Y);
+            pictureAwayGoalKeeper.Location = new Point(gameState.PictureAwayGoalKeeperX, gameState.PictureAwayGoalKeeperY);
+            pictureBall.Location = new Point(gameState.PictureBallX, gameState.PictureBallY);
+
+            canSend = true;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.L && GameState.message)
+            userCommand.ClientId = clientId;
+            if (e.KeyCode == Keys.Up )
             {
-                GameState.message = false;
-                comm.SendMessage("FEL");
+                userCommand.Up = true;
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                userCommand.Down = true;
+            }
+            if (e.KeyCode == Keys.Left )
+            {
+                userCommand.Left = true;
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                userCommand.Right = true;
+            }
+            if (canSend)
+            {
+                comm.SendMessage(JsonConvert.SerializeObject(userCommand));
+                canSend = false;
+            }
+            
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                userCommand.Up = false;
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                userCommand.Down = false;
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                userCommand.Left = false;
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                userCommand.Right = false;
+            }
+
+            if (canSend)
+            {
+                comm.SendMessage(JsonConvert.SerializeObject(userCommand));
+                canSend = false;
             }
         }
 

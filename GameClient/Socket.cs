@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using GameClient;
+using Newtonsoft.Json;
 
 namespace GameClientNamespace
 {
@@ -51,12 +55,9 @@ namespace GameClientNamespace
 							string serverMessage = Encoding.ASCII.GetString(incommingData);
 							Debug.WriteLine("Kapott üzenet a szervertől: " + serverMessage);
 
-							if (serverMessage == "OK_1")
-                            {
-								GameState.gameActualState = 1;
-                            }
-							GameState.message = true;
+							SingletonGameState.GetInstance().SetGameState(JsonConvert.DeserializeObject<GameState>(serverMessage));
 						}
+						
 					}
 				}
 			}
@@ -86,6 +87,18 @@ namespace GameClientNamespace
 			{
 				Debug.WriteLine("Socket exception: " + socketException);
 			}
+		}
+
+		private GameState JsonDeSerialize(string gameStateJson)
+		{
+			using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(gameStateJson)))
+			{
+				DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(GameState));
+				GameState gameState = (GameState)deserializer.ReadObject(ms);
+
+				return gameState;
+			}
+			
 		}
 
 	}
