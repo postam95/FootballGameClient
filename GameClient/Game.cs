@@ -101,6 +101,17 @@ namespace GameClientNamespace
             if (e.KeyCode == Keys.Space)
             {
                 userCommand.Kick = true;
+                userCommand.KickForce = 1;
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                userCommand.Kick = true;
+                userCommand.KickForce = 40;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                userCommand.Kick = true;
+                userCommand.KickForce = 100;
             }
             if (canSend)
             {
@@ -131,8 +142,18 @@ namespace GameClientNamespace
             if (e.KeyCode == Keys.Space)
             {
                 userCommand.Kick = false;
+                userCommand.KickForce = 0;
             }
-
+            if (e.KeyCode == Keys.S)
+            {
+                userCommand.Kick = false;
+                userCommand.KickForce = 0;
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                userCommand.Kick = false;
+                userCommand.KickForce = 0;
+            }
             if (canSend)
             {
                 comm.SendMessage(JsonConvert.SerializeObject(userCommand));

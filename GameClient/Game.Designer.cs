@@ -72,7 +72,7 @@
             // 
             this.pictureHomePlayer1.BackColor = System.Drawing.Color.Transparent;
             this.pictureHomePlayer1.Image = ((System.Drawing.Image)(resources.GetObject("pictureHomePlayer1.Image")));
-            this.pictureHomePlayer1.Location = new System.Drawing.Point(326, 249);
+            this.pictureHomePlayer1.Location = new System.Drawing.Point(600, 505);
             this.pictureHomePlayer1.Name = "pictureHomePlayer1";
             this.pictureHomePlayer1.Size = new System.Drawing.Size(35, 35);
             this.pictureHomePlayer1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -116,7 +116,7 @@
             // 
             this.pictureBall.BackColor = System.Drawing.Color.Transparent;
             this.pictureBall.Image = ((System.Drawing.Image)(resources.GetObject("pictureBall.Image")));
-            this.pictureBall.Location = new System.Drawing.Point(397, 261);
+            this.pictureBall.Location = new System.Drawing.Point(600, 25);
             this.pictureBall.Name = "pictureBall";
             this.pictureBall.Size = new System.Drawing.Size(15, 15);
             this.pictureBall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
