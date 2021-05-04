@@ -38,6 +38,14 @@ namespace GameClient
             this.kickForce = kickForce;
         }
 
+        public void deleteCommands()
+        {
+            if (kickForce > 1)
+            {
+                this.kick = false;
+                this.kickForce = 0;
+            }
+        }
         public bool Up { get => up; set => up = value; }
         public bool Down { get => down; set => down = value; }
         public bool Left { get => left; set => left = value; }
