@@ -53,6 +53,7 @@ namespace GameClientNamespace
                 textBoxName.Enabled = false;
                 buttonConnect.Enabled = false;
                 clientId = 1;
+                userCommand.ClientId = 1;
             }
 
             if (gameState.GameActualState == 2)
@@ -63,6 +64,7 @@ namespace GameClientNamespace
                 if (clientId == 0)
                 {
                     clientId = 2;
+                    userCommand.ClientId = 2;
                 }
             }
 
@@ -75,13 +77,12 @@ namespace GameClientNamespace
             pictureAwayPlayer1.Location = new Point(gameState.PictureAwayPlayer1X, gameState.PictureAwayPlayer1Y);
             pictureAwayGoalKeeper.Location = new Point(gameState.PictureAwayGoalKeeperX, gameState.PictureAwayGoalKeeperY);
             pictureBall.Location = new Point(gameState.PictureBallX, gameState.PictureBallY);
-
+            
             canSend = true;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            userCommand.ClientId = clientId;
             if (e.KeyCode == Keys.Up )
             {
                 userCommand.Up = true;
@@ -115,7 +116,7 @@ namespace GameClientNamespace
             }
             if (canSend)
             {
-                comm.SendMessage(JsonConvert.SerializeObject(userCommand));
+                //comm.SendMessage(JsonConvert.SerializeObject(userCommand));
                 canSend = false;
             }
             
@@ -156,7 +157,7 @@ namespace GameClientNamespace
             }
             if (canSend)
             {
-                comm.SendMessage(JsonConvert.SerializeObject(userCommand));
+               // comm.SendMessage(JsonConvert.SerializeObject(userCommand));
                 canSend = false;
             }
         }
