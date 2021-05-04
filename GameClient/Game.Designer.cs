@@ -105,7 +105,7 @@
             // 
             this.pictureAwayGoalKeeper.BackColor = System.Drawing.Color.Transparent;
             this.pictureAwayGoalKeeper.Image = ((System.Drawing.Image)(resources.GetObject("pictureAwayGoalKeeper.Image")));
-            this.pictureAwayGoalKeeper.Location = new System.Drawing.Point(767, 165);
+            this.pictureAwayGoalKeeper.Location = new System.Drawing.Point(726, 249);
             this.pictureAwayGoalKeeper.Name = "pictureAwayGoalKeeper";
             this.pictureAwayGoalKeeper.Size = new System.Drawing.Size(35, 35);
             this.pictureAwayGoalKeeper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -264,6 +264,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(814, 542);
+            this.Controls.Add(this.pictureBall);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
@@ -272,7 +273,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.player1Value);
             this.Controls.Add(this.player1Name);
-            this.Controls.Add(this.pictureBall);
             this.Controls.Add(this.pictureAwayPlayer1);
             this.Controls.Add(this.pictureAwayGoalKeeper);
             this.Controls.Add(this.pcictureHomeGoalKeeper);
